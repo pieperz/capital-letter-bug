@@ -10,6 +10,7 @@ import type { PageContextServer } from './types'
 
 async function render(pageContext: PageContextServer) {
   const { Page, pageProps } = pageContext
+  
   // This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
   const pageHtml = ReactDOMServer.renderToString(
@@ -40,6 +41,7 @@ async function render(pageContext: PageContextServer) {
   return {
     documentHtml,
     pageContext: {
+      handle: pageContext.routeParams.handle,
       // We can add some `pageContext` here, which is useful if we want to do page redirection https://vike.dev/page-redirection
     }
   }
